@@ -79,6 +79,7 @@ class Board():
 
         return count
 
-
+    def get_valid_cols(self):
+        return [col for col in range(self.cols) if self.col_heights[col] < self.rows]
 
 
