@@ -2,8 +2,7 @@ import numpy as np
 
 class Board():
     # 0 = Empty, 1 = Player 1, 2 = Player 2
-    stack = []
-    current_player = 1   # to keep track in undo
+
     def __init__(self):
         self.rows = 6
         self.cols = 7
@@ -11,6 +10,8 @@ class Board():
         self.grid = np.zeros((self.rows, self.cols), dtype=np.int8)  # to use smaller space
         self.col_heights = [0] * self.cols
         self.move_count = 0
+        self.stack = []
+        self.current_player = 1   # to keep track in undo
 
     def isvalidmove(self, col):
         return 0 <= col < self.cols and self.col_heights[col] < self.rows
