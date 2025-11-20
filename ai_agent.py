@@ -1,52 +1,48 @@
 import math
+import board
+
 
 # agent is the player 2
-class heuristic():
+class Heuristic():
     def __init__(self, ai_player, opp_player):
         self.ai_player = ai_player
         self.opp_player = opp_player
-
-
 
     def heuristic_evaluation(self, board):
         score_diff = 0
         score_diff += board.get_difference(2, 1) * 10000  # tha main in evaluation
 
         position_values = 0
-        #horizontal
+        # horizontal
         for r in range(board.rows):
             for c in range(board.cols - 3):
-                window = board.grid[r, c:c+4]
+                window = board.grid[r, c:c + 4]
                 position_values += self.window_evaluations(window)
 
-
-        #vertical
+        # vertical
         for c in range(board.cols):
             for r in range(board.rows - 3):
-                window = board.grid[r:r+4, c]
+                window = board.grid[r:r + 4, c]
                 position_values += self.window_evaluations(window)
 
-
-        #diagonal /
+        # diagonal /
         for r in range(board.rows - 3):
             for c in range(board.cols - 3):
-                window = [board.grid[r+i][c+i] for i in range(4)]
+                window = [board.grid[r + i][c + i] for i in range(4)]
                 position_values += self.window_evaluations(window)
 
-
-        #diagonal \
-        for r in range(3,board.rows):
+        # diagonal \
+        for r in range(3, board.rows):
             for c in range(board.cols - 3):
-                window = [board.grid[r-i][c+i] for i in range(4)]
+                window = [board.grid[r - i][c + i] for i in range(4)]
                 position_values += self.window_evaluations(window)
-
 
         center_count = list(board.grid[:, 3]).count(self.ai_player)
         center_val = center_count * 4
 
-        center_count = list(board.grid[:, 2]).count(self.ai_player) + list(board.grid[:,4]).count(self.ai_player)
+        center_count = list(board.grid[:, 2]).count(self.ai_player) + list(board.grid[:, 4]).count(self.ai_player)
         center_val += center_count * 2
-        return  score_diff + position_values + center_val
+        return score_diff + position_values + center_val
 
     def window_evaluations(self, window):
         score = 0
@@ -67,19 +63,54 @@ class heuristic():
 
         return score
 
+
 class MiniMax():
-    def __init__(self, board, k_depth):
-        self.board = board
+    def __init__(self, board: board.Board, k_depth, heuristic: Heuristic, ai_player, opp_player):
+        self.board = board  # I will clone it
         self.k_depth = k_depth
+        self.heuristic = heuristic
+        self.ai_player = ai_player
+        self.opp_player = opp_player
 
     def get_best_move(self):
-        pass
+        is_max = True
+        best_eval = math.inf * -1
+        best_col = -1
+        for col in self.board.get_valid_cols():
+            eval = self.minimax(self.board, is_max, 5)
+            if eval > best_eval:
+                best_eval = eval
+                best_col = col
 
-    def minimax(self, is_max, depth):
-        pass
+        return best_col
 
+    def minimax(self, board: board.Board, is_max: bool, depth):
+        if self.board.isterminal():
+            #  check the winner
+            if self.board.get_difference(self.ai_player, self.opp_player) > 0:
+                return math.inf
+            elif self.board.get_difference(self.ai_player, self.opp_player) < 0:
+                return math.inf * -1
 
+            else:
+                return 0
 
+        if depth == 0:
+            return self.heuristic.heuristic_evaluation(self.board)
 
+        if is_max:
+            max_eval = math.inf * -1
+            for col in board.get_valid_cols():
+                eval = self.minimax(board.makemove(col, self.ai_player), False, depth - 1)
+                board.undomove()
+                max_eval = max(max_eval, eval)
 
+            return max_eval
+        if not is_max:
+            min_eval = math.inf
+            for col in board.get_valid_cols():
+                eval = self.minimax(board.makemove(col, self.opp_player), True, depth - 1)
+                board.undomove()
+                min_eval = min(min_eval, eval)
 
+            return min_eval
