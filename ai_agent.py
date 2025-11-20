@@ -79,7 +79,7 @@ class MiniMax():
         best_col = -1
         for col in simulation_board.get_valid_cols():
             simulation_board.makemove(col,self.ai_player)
-            eval = self.minimax(simulation_board, is_max, self.k_depth)
+            eval = self.minimax(simulation_board, is_max, self.k_depth - 1)
             simulation_board.undomove()
             if eval > best_eval:
                 best_eval = eval
@@ -90,16 +90,11 @@ class MiniMax():
     def minimax(self, board: board.Board, is_max: bool, depth):
         if board.isterminal():
             #  check the winner
-            if board.get_difference(self.ai_player, self.opp_player) > 0:
-                return math.inf
-            elif board.get_difference(self.ai_player, self.opp_player) < 0:
-                return math.inf * -1
+            diff = board.get_difference(self.ai_player, self.opp_player)
 
-            else:
-                return 0
-
+            return diff * 100000
         if depth == 0:
-            return self.heuristic.heuristic_evaluation(board)
+                return self.heuristic.heuristic_evaluation(board)
 
         if is_max:
             max_eval = math.inf * -1
