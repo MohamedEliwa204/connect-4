@@ -87,4 +87,10 @@ class Board():
         return self.coount_connected_four(player1) - self.coount_connected_four(player2)
 
 
+    def copy(self):
+        new_board = Board()
+        new_board.grid = self.grid.copy() # Numpy copy is fast
+        new_board.col_heights = self.col_heights[:] # List slice copy is fast
+        new_board.move_count = self.move_count
+        return new_board
 
