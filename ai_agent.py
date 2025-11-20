@@ -175,3 +175,7 @@ class MiniMaxAlphaBeta():
                     break
 
             return min_eval
+
+
+class ExpectMinimax():
+    pass
