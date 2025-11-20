@@ -83,3 +83,8 @@ class Board():
         return [col for col in range(self.cols) if self.col_heights[col] < self.rows]
 
 
+    def get_difference(self, player1, player2):
+        return self.coount_connected_four(player1) - self.coount_connected_four(player2)
+
+
+
