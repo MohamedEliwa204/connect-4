@@ -78,6 +78,7 @@ class MiniMax():
         is_max = False
         best_eval = math.inf * -1
         best_col = -1
+
         for col in simulation_board.get_valid_cols():
             simulation_board.makemove(col, self.ai_player)
             eval = self.minimax(simulation_board, is_max, self.k_depth - 1)
@@ -153,7 +154,7 @@ class MiniMaxAlphaBeta():
             max_eval = math.inf * -1
             for col in board.get_valid_cols():
                 board.makemove(col, self.ai_player)
-                eval = self.minimax(board, False, depth - 1)
+                eval = self.minimax(board, False,alpha, beta, depth - 1)
 
                 board.undomove()
                 max_eval = max(max_eval, eval)
