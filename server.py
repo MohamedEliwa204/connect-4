@@ -66,7 +66,12 @@ def make_move():
         diff = game_board.get_difference(1, 2)
         winner = None
         if game_over:
-            winner = "AI" if diff < 0 else "Draw" 
+            if diff > 0:
+                winner = "Human"
+            elif diff < 0:
+                winner = "AI"
+            else:
+                winner = "Draw" 
 
         return jsonify({
             "grid": game_board.grid.tolist(),
