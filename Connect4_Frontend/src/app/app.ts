@@ -18,6 +18,8 @@ export class AppComponent {
   depth : number = 3;
   Ai_Score : number = 0;
   Human_Score : number = 0;
+  execution_time : number = 0 
+  nodes_expanded : number = 0
 
   constructor(private http: HttpClient) {}
   startGame(algo: number) {
@@ -50,6 +52,8 @@ export class AppComponent {
       this.grid = res.grid.reverse(); 
       if (res.human_score !== undefined) this.Human_Score = res.human_score;
       if (res.ai_score !== undefined) this.Ai_Score = res.ai_score;
+      if (res.execution_time ) this.execution_time = res.execution_time;
+      if (res.nodes_expanded ) this.nodes_expanded = res.nodes_expanded;
       if (res.game_over) {
         this.gameOver = true;
         this.winner = res.winner;

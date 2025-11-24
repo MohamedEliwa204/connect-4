@@ -24,8 +24,23 @@
       }
     </div>
   }
+  @if(nodes_expanded>0){
+    <div class ="state">
+      <h2>Algorithm State</h2>
+      <div class="state_box">
+        <span class="label"> Time Taken : </span>
+        <span class="value"> {{execution_time.toFixed(5)}}</span>
+      </div>
+      <div class="state_box">
+        <span class="label"> Nodes Expanded :</span>
+        <span class="value"> {{nodes_expanded}}</span>
+      </div>
+
+    </div>
+  }
+
   <div class="scores">
-    <h3>Scores</h3>
+    <h2>Scores</h2>
     <p>Human: {{ Human_Score }}</p>
     <p>AI: {{ Ai_Score }}</p>
   </div>

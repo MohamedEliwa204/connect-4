@@ -1,6 +1,7 @@
 import math
 import board
 import copy
+import time
 
 
 class Colors:
@@ -82,8 +83,12 @@ class MiniMax():
         self.heuristic = heuristic
         self.ai_player = ai_player
         self.opp_player = opp_player
+        self.node_expanded = 0
+        self.execution_time = 0
 
     def get_best_move(self, visualize=True):
+        self.node_expanded=0
+        start_time = time.time()
         simulation_board = self.real_board.copy()
         best_eval = math.inf * -1
         best_col = -1
@@ -104,11 +109,12 @@ class MiniMax():
             if eval > best_eval:
                 best_eval = eval
                 best_col = col
-
+        self.execution_time = time.time()-start_time
         print(f"{Colors.HEADER}--- BEST MOVE: {best_col} (Eval: {best_eval}) ---{Colors.RESET}")
         return best_col
 
     def minimax(self, board_obj, is_max, depth, visualize):
+        self.node_expanded+=1
 
         indent = "|   " * (self.k_depth - depth)
         node_type = f"{Colors.GREEN}MAX{Colors.RESET}" if is_max else f"{Colors.RED}MIN{Colors.RESET}"
@@ -153,8 +159,12 @@ class MiniMaxAlphaBeta():
         self.heuristic = heuristic
         self.ai_player = ai_player
         self.opp_player = opp_player
+        self.node_expanded = 0
+        self.execution_time = 0
 
     def get_best_move(self, visualize=True):
+        self.node_expanded=0
+        start_time = time.time()
         simulation_board = self.real_board.copy()
         best_eval = math.inf * -1
         best_col = -1
@@ -173,11 +183,12 @@ class MiniMaxAlphaBeta():
             if eval > best_eval:
                 best_eval = eval
                 best_col = col
-
+        self.execution_time = time.time()-start_time
         print(f"{Colors.HEADER}--- BEST MOVE: {best_col} (Eval: {best_eval}) ---{Colors.RESET}")
         return best_col
 
     def minimax(self, board_obj, is_max, alpha, beta, depth, visualize):
+        self.node_expanded+=1
         indent = "|   " * (self.k_depth - depth)
         node_type = f"{Colors.GREEN}MAX{Colors.RESET}" if is_max else f"{Colors.RED}MIN{Colors.RESET}"
 
@@ -233,8 +244,12 @@ class ExpectMinimax():
         self.heuristic = heuristic
         self.ai_player = ai_player
         self.opp_player = opp_player
+        self.node_expanded = 0
+        self.execution_time = 0
 
     def get_best_move(self, visualize=True):
+        self.node_expanded=0
+        start_time = time.time()
         simulation_board = self.real_board.copy()
         best_eval = -math.inf
         best_col = -1
@@ -254,12 +269,12 @@ class ExpectMinimax():
             if eval > best_eval:
                 best_eval = eval
                 best_col = col
-
+        self.execution_time = time.time()-start_time
         return best_col if best_col != -1 else valid_cols[0]
 
     def expectiminimax(self, board_obj, depth, is_max, visualize):
+        self.node_expanded += 1
         indent = "|   " * (self.k_depth - depth)
-
         if depth == 0 or board_obj.isterminal():
             if board_obj.isterminal():
                 return board_obj.get_difference(self.ai_player, self.opp_player) * 100000

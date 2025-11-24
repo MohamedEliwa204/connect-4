@@ -49,7 +49,9 @@ def make_move():
                  "game_over": True, 
                  "winner": "Human" if diff > 0 else "Draw" ,
                  "human_score": human_score,
-                 "ai_score": ai_score        
+                 "ai_score": ai_score ,
+                 "execution_time" :  ai_brain.execution_time,
+                 "nodes_expanded" : ai_brain.node_expanded
              })
     else:
         return jsonify({"error": "Invalid Move"}), 400
@@ -79,7 +81,9 @@ def make_move():
             "game_over": game_over,
             "winner": winner,
             "human_score": human_score,
-            "ai_score": ai_score   
+            "ai_score": ai_score   ,
+            "execution_time": ai_brain.execution_time,
+            "nodes_expanded": ai_brain.node_expanded
         })
 
     return jsonify({"grid": game_board.grid.tolist(), "game_over": False})
