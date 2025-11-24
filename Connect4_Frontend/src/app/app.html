@@ -1,0 +1,38 @@
+<div class="container">
+  <h1>Connect 4 AI</h1>
+  <div class="controls">
+    <button (click)="startGame(1)">Start (Minimax)</button>
+    <button (click)="startGame(2)">Start (Alpha-Beta)</button>
+    <button (click)="startGame(3)">Start (ExpectMinimax)</button>
+  </div>
+  <div class="controls">
+    <h2>AI Depth:</h2>
+    <input type="number" id="depth" [(ngModel)]="depth" min="1" max="6"/>
+  </div>
+  @if (grid.length > 0) {
+    <div class="board">
+      
+      @for (row of grid; track $index) {
+        <div class="row">
+          
+          @for (cell of row; track $index; let c = $index) {
+            <div class="cell" (click)="makeMove(c)">
+              <div class="disc" [ngClass]="getCellClass(cell)"></div>
+            </div>
+          }
+        </div>
+      }
+    </div>
+  }
+  <div class="scores">
+    <h3>Scores</h3>
+    <p>Human: {{ Human_Score }}</p>
+    <p>AI: {{ Ai_Score }}</p>
+  </div>
+  @if (isLoading) {
+    <div class="loading">Thinking...</div>
+  }
+  @if (gameOver) {
+    <div class="result">Winner: {{ winner }}</div>
+  }
+</div>
