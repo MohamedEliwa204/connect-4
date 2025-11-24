@@ -1,0 +1,137 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: sans-serif;
+}
+.app {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100vh;
+    background-color: #dde4f7;
+}
+.calculator {
+	background-color: #4f73c7;
+	width: 100%;
+	max-width: 375px;
+	min-height: 640px;
+	display: flex;
+	flex-direction: column;
+	border-radius: 1.5rem;
+	overflow: hidden;
+}
+.display {
+	min-height: 200px;
+	padding: 1.5rem;
+	display: flex;
+	justify-content: flex-end;
+	align-items: flex-end;
+	color: white;
+	text-align: right;
+	flex: 1 1 0%;
+}
+.display .input {
+	width: 100%;
+	font-size: 1.25rem;
+	margin-bottom: 0.5rem;
+}
+
+.display .output {
+	font-size: 3rem;
+	font-weight: 700;
+	width: 100%;
+	white-space: nowrap;
+}
+.keys {
+    background-color: #7e9ddc;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 3px;
+    padding: 2px;
+    border-radius: 1rem 1rem 0 0;
+    box-shadow: inset 0px -2px 16px rgba(0,0,0,0.2);
+    
+    
+}
+
+.keys .key {
+	position: relative;
+	cursor: pointer;
+	display: flex;               
+	align-items: center;
+	justify-content: center;    
+
+	width: 100%;                
+	aspect-ratio: 1 / 0.8;     
+
+	font-size: 1.5rem;
+	font-weight: 700;
+	color: #FFF;
+
+	background-color: #5a6485;
+	border-radius: 1rem;
+	transition: 0.2s;
+	user-select: none;
+	border: none;            
+}
+.keys .key:active {
+	transform: scale(0.9); 
+	background-color: #3b3f4d;}
+
+.keys .key_op {
+	position: relative;
+	cursor: pointer;
+	display: flex;               
+	align-items: center;
+	justify-content: center;    
+
+	width: 100%;                
+	aspect-ratio: 1 / 0.8;     
+
+	font-size: 1.5rem;
+	font-weight: 700;
+	color: #FFF;
+
+	background-color: #3f5186;
+	border-radius: 1rem;
+	transition: 0.2s;
+	user-select: none;
+	border: none;            
+}
+.keys .key_op:active {
+	transform: scale(0.9); 
+	background-color: #3b3f4d;}
+.keys .key_equal_sign {
+	position: relative;
+	cursor: pointer;
+	display: flex;               
+	align-items: center;
+	justify-content: center;    
+
+	width: 100%;                
+	aspect-ratio: 1 / 0.8;     
+
+	font-size: 1.5rem;
+	font-weight: 700;
+	color: #FFF;
+
+	background-color: #1b317c;
+	border-radius: 1rem;
+	transition: 0.2s;
+	user-select: none;
+	border: none;            
+}
+.keys .key_equal_sign:active {
+	transform: scale(0.9); 
+	background-color: #3b3f4d;}
+
+.keys .key:hover {
+	box-shadow: inset 0px 0px 8px rgba(0, 0, 0, 0.2);
+}
+.keys .key_op:hover {
+	box-shadow: inset 0px 0px 8px rgba(0, 0, 0, 0.2);
+}
+.keys .key_equal_sign:hover {
+	box-shadow: inset 0px 0px 8px rgba(0, 0, 0, 0.2);
+}

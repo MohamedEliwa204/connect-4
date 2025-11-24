@@ -55,8 +55,10 @@ class Heuristic():
 
     def window_evaluations(self, window):
         score = 0
-        window = window.tolist()
-
+        if hasattr(window, 'tolist'):
+            window = window.tolist()
+        else:
+            window = list(window)
         ai_pieces = window.count(self.ai_player)
         empty_slots = window.count(0)
         opp_pieces = window.count(self.opp_player)
